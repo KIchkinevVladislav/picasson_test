@@ -23,6 +23,7 @@ class File(models.Model):
         default=False,
         verbose_name='Статус обработки файла'
     )
+    
 
     def __str__(self):
         return f'Файл с ID {self.pk}'

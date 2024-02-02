@@ -1,6 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework import filters
+from rest_framework.pagination import PageNumberPagination
 
 from .models import File
 from .serializers import FileSerializer
@@ -18,6 +19,8 @@ class FileListView(ListAPIView):
     filterset_fields = ['processed']
     search_fields = ['uploaded_at']
     ordering_fields = ['uploaded_at']
+
+    pagination_class = PageNumberPagination
 
 
 class CreateFileView(CreateAPIView):
