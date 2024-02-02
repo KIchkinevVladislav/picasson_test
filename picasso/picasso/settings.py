@@ -11,16 +11,23 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from envparse import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = Env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y8@r-byufwd*vk&p(+(g$y$v0^@b=1jmn5^mj7k9rjsj%y_rxl'
+SECRET_KEY = env.str(
+    "SECRET_KEY",
+    default="django-insecure-y8@r-byufwd*vk&p(+(g$y$v0^@b=1jmn5^mj7k9rjsj%y_rxl",
+)
+
+# 'django-insecure-y8@r-byufwd*vk&p(+(g$y$v0^@b=1jmn5^mj7k9rjsj%y_rxl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -132,9 +139,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Celery
-REDIS_HOST='127.0.0.1'
-REDIS_PORT='6379'
+REDIS_HOST_LOCAL='127.0.0.1'
 
-CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
-CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+REDIS_HOST=env.str(
+    'REDIS_HOST',
+    default='127.0.0.1',
+)
+REDIS_PORT=env.str(
+    'REDIS_PORT',
+    default='6379',
+)
+
+CELERY_BROKER_URL = f'redis://{REDIS_HOST_LOCAL}:{REDIS_PORT}'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST_LOCAL}:{REDIS_PORT}'
 

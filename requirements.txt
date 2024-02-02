@@ -4,3 +4,4 @@ djangorestframework
 celery[redis]
 
 django-filter
+envparse

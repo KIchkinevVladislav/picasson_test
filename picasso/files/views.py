@@ -23,7 +23,6 @@ class FileListView(ListAPIView):
 class CreateFileView(CreateAPIView):
     """
     View for creating a new object File.
-
     """
     queryset = File.objects.all()
     serializer_class = FileSerializer
