@@ -145,17 +145,17 @@ REST_FRAMEWORK = {
 }
 
 # Celery
-REDIS_HOST_LOCAL='127.0.0.1'
+# REDIS_HOST_LOCAL='127.0.0.1'
 
 REDIS_HOST=env.str(
     'REDIS_HOST',
-    default='127.0.0.1',
+    default='redis',
 )
 REDIS_PORT=env.str(
     'REDIS_PORT',
     default='6379',
 )
 
-CELERY_BROKER_URL = f'redis://{REDIS_HOST_LOCAL}:{REDIS_PORT}'
-CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST_LOCAL}:{REDIS_PORT}'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 

@@ -1,0 +1,32 @@
+version: "3.3"
+volumes:
+  pg_data:
+
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  picasso:
+    build: ./picasso
+    restart: always
+    volumes:
+      - ./picasso:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    links:
+      - redis
+
+  celery:
+    build: ./picasso
+    restart: always
+    volumes:
+      - ./picasso:/app
+    command: ["celery", "-A", "picasso", "worker", "-l", "INFO", "-P", "solo"]
+    depends_on:
+      - redis
+      - picasso
