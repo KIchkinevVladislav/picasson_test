@@ -1,7 +1,8 @@
-Django==4.2
+Django
 djangorestframework
 
 celery[redis]
 
 django-filter
 envparse
+pytest-django

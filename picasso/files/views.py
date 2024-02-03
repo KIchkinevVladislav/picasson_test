@@ -7,11 +7,19 @@ from .models import File
 from .serializers import FileSerializer
 
 
+class CreateFileView(CreateAPIView):
+    """
+    View for creating a new object File.
+    """
+    queryset = File.objects.all()
+    serializer_class = FileSerializer
+
+
 class FileListView(ListAPIView):
     """
     Returns a list of all objects File.    
     """
-    queryset = File.objects.all()
+    queryset = File.objects.all().order_by('uploaded_at')
     serializer_class = FileSerializer
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -21,11 +29,3 @@ class FileListView(ListAPIView):
     ordering_fields = ['uploaded_at']
 
     pagination_class = PageNumberPagination
-
-
-class CreateFileView(CreateAPIView):
-    """
-    View for creating a new object File.
-    """
-    queryset = File.objects.all()
-    serializer_class = FileSerializer
